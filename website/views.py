@@ -1,4 +1,4 @@
-# Import necessary modules and classes from Flask and other packages
+ # Import necessary modules and classes from Flask and other packages
 from flask import Blueprint, render_template, request, flash, jsonify, current_app
 from flask_login import login_required, current_user
 from .models import Note
@@ -51,7 +51,7 @@ def schedule_email(email, note, scheduled_date, noteId, app):
         scheduled_datetime = datetime.strptime(scheduled_date, "%Y-%m-%d")
         scheduled_date_only = scheduled_datetime.date()
         if scheduled_date_only >= datetime.now().date():
-            extended_run_date = scheduled_datetime + timedelta(minutes=123) 
+            extended_run_date = scheduled_datetime + timedelta(minutes=1080) 
             scheduler.add_job(
                 send_scheduled_email,
                 'date',
