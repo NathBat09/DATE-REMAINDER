@@ -1,0 +1,31 @@
+{% extends "base.html" %}  <!-- Extend the base template -->
+
+{% block title %}Home{% endblock %}  <!-- Set the title of this page -->
+
+{% block content %}  <!-- Start defining the content of this block -->
+
+<br>
+<h3 align="center" style="font-size: 50px; color: #333; font-weight: bold; margin-bottom: 20px;">REMINDER NOTES</h3>
+<br>
+<ul class="list-group list-group-flush" id="notes">
+    <!-- Loop through user's notes and display them -->
+    {% for note in user.notes %}
+    <li class="list-group-item">
+        {{ note.data }}  <!-- Display the note's data -->
+        <button type="button" class="close delete-note" data-note-id="{{ note.id }}">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </li>
+    {% endfor %}
+</ul>
+<form method="POST">  <!-- Form for adding a new note -->
+    <textarea name="note" id="note" class="form-control"></textarea>
+    <br />
+    <label for="date">Date: </label>
+    <input type="date" id="date" name="date">
+    <div align="center">
+        <button type="submit" class="btn btn-primary">Add Note</button>
+    </div>
+</form>
+
+{% endblock %}  <!-- End of the content block -->
