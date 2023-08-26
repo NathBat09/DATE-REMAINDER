@@ -15,7 +15,7 @@ scheduler = BackgroundScheduler()
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'hjshjhdjah kjshkjdhjs'
-    app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://natanael.batista@upr.edu:Onepiece0987@localhost:5432/postgresql-asymmetrical-66121"
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     app.config['MAIL_SERVER'] = 'smtp.gmail.com'
     app.config['MAIL_PORT'] = 587
     app.config['MAIL_USERNAME'] = 'reminder.noreply987@gmail.com'  
