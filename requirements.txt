@@ -27,7 +27,7 @@ prompt-toolkit
 psycopg2
 psycopg2-binary
 psycopg2-pool
-python-dateutil
+python-dateutil>=2.8.2
 pytz
 requests
 schedule
