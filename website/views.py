@@ -22,7 +22,7 @@ views = Blueprint('views', __name__)
 def home():
     # Set up logging and log the current date
     logging.basicConfig(level=logging.DEBUG)
-    logging.debug(datetime.now().date())
+    logging.debug("DEBUGGING: " + datetime.now().date())
     
     # Handle form submission on the home page
     with current_app.app_context():
@@ -48,10 +48,11 @@ def home():
 # Schedule an email to be sent at a specified date
 def schedule_email(email, note, scheduled_date, noteId, app):
     with app.app_context():
+        logging.debug("DEBUGGING SCHEDULING: " + datetime.now().date())
         scheduled_datetime = datetime.strptime(scheduled_date, "%Y-%m-%d")
-        scheduled_date_only = scheduled_datetime.date()
+        scheduled_date_only = scheduled_datetime.date() 
         if scheduled_date_only > datetime.now().date():
-            extended_run_date = scheduled_datetime 
+            extended_run_date = scheduled_datetime + timedelta(minutes=850)
             scheduler.add_job(
                 send_scheduled_email,
                 'date',
@@ -65,6 +66,7 @@ def schedule_email(email, note, scheduled_date, noteId, app):
 # Send a scheduled email and delete the corresponding note
 def send_scheduled_email(email, body, noteId, app):
     with app.app_context():
+        logging.debug("DEBUGGING TIME: " + datetime.now().date())
         msg = Message(subject="IMPORTANT REMINDER", body=body, sender='reminder.noreply987@gmail.com')
         msg.add_recipient(email)
         mail.send(msg)
