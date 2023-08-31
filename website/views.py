@@ -52,7 +52,7 @@ def schedule_email(email, note, scheduled_date, noteId, app):
         scheduled_datetime = datetime.strptime(scheduled_date, "%Y-%m-%d")
         scheduled_date_only = scheduled_datetime.date() 
         if scheduled_date_only >= datetime.now().date():
-            extended_run_date = scheduled_datetime + timedelta(hours=17)
+            extended_run_date = scheduled_datetime + timedelta(minutes=230)
             scheduler.add_job(
                 send_scheduled_email,
                 'date',
