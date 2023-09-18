@@ -37,7 +37,7 @@ def home():
                 flash('You need to include a date!', category='error')
             else:
                 # Create a new note and schedule an email
-                new_note = Note(data=note, user_id=current_user.id)
+                new_note = Note(data=note+' ('+str(scheduled_date)+')', user_id=current_user.id)
                 db.session.add(new_note)
                 db.session.commit()
                 schedule_email(current_user.email, note, scheduled_date, new_note.id, current_app._get_current_object())
@@ -52,7 +52,7 @@ def schedule_email(email, note, scheduled_date, noteId, app):
         scheduled_datetime = datetime.strptime(scheduled_date, "%Y-%m-%d")
         scheduled_date_only = scheduled_datetime.date() 
         if scheduled_date_only >= datetime.now().date():
-            extended_run_date = scheduled_datetime + timedelta(minutes=230)
+            extended_run_date = scheduled_datetime + timedelta(minutes=38)
             scheduler.add_job(
                 send_scheduled_email,
                 'date',
@@ -78,15 +78,3 @@ def send_scheduled_email(email, body, noteId, app):
                 db.session.delete(note)
                 db.session.commit()
 
-# Define a route to delete a note
-@views.route('/delete-note', methods=['POST'])
-def delete_note():  
-    note = json.loads(request.data)
-    noteId = note['noteId']
-    note = Note.query.get(noteId)
-    if note:
-        if note.user_id == current_user.id:
-            db.session.delete(note)
-            db.session.commit()
-
-    return jsonify({})

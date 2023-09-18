@@ -11,10 +11,7 @@
     <!-- Loop through user's notes and display them -->
     {% for note in user.notes %}
     <li class="list-group-item">
-        {{ note.data }}  <!-- Display the note's data -->
-        <button type="button" class="close delete-note" data-note-id="{{ note.id }}">
-            <span aria-hidden="true">&times;</span>
-        </button>
+        {{ note.data }} 
     </li>
     {% endfor %}
 </ul>
@@ -29,3 +26,18 @@
 </form>
 
 {% endblock %}  <!-- End of the content block -->
+
+{% block javascript %}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var modal = document.getElementById("important");
+        var close = document.getElementById("close");
+
+        modal.style.display = "block"; // Display the modal when the page loads
+
+        close.addEventListener("click", function() {
+            modal.style.display = "none";
+        });
+    });
+</script>
+{% endblock %}
